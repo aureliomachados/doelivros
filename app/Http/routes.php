@@ -19,3 +19,6 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
+
+#restfull resources for GeneroLivroController.
+Route::resource('generolivro', 'GeneroLivroController');
