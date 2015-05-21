@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: doelivros
+        psr4_prefix: doelivros
+        src_path: app
