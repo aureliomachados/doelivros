@@ -3,12 +3,17 @@
 use doelivros\GeneroLivro;
 use doelivros\Http\Requests;
 use doelivros\Http\Controllers\Controller;
+use doelivros\Http\Requests\GeneroLivroRequest;
 
 use Illuminate\Http\Request;
 
 use Input, Redirect, View;
 
 class GeneroLivroController extends Controller {
+
+    public function __construct(){
+        $this->middleware("auth");
+    }
 
     private $rules = [
     'genero' => 'required'
@@ -40,27 +45,18 @@ class GeneroLivroController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function store()
+	public function store(GeneroLivroRequest $request)
 	{
+        $genero = new GeneroLivro();
 
-        $validator = \Validator::make(Input::all(), $this->rules);
+        $genero->genero = $request->get("genero");
 
-        //verifica se as validações passaram
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator->errors());
-        }
-        else{
-            $genero = new GeneroLivro();
+        $genero->save();
 
-            $genero->genero = Input::get('genero');
-
-            $genero->save();
-
-            //redireciona para a página com a lista.
-            \Session::flash("message", "Gênero criado com sucesso!");
-            \Session::flash("status", "success");
-            return Redirect::route("generolivro.index");
-        }
+        //redireciona para a página com a lista.
+        \Session::flash("message", "Gênero criado com sucesso!");
+        \Session::flash("status", "success");
+        return Redirect::route("generolivro.index");
 	}
 
 	/**
@@ -95,15 +91,9 @@ class GeneroLivroController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(GeneroLivroRequest $request ,$id)
 	{
 
-        $validator = \Validator::make(Input::all(), $this->rules);
-
-        if($validator->fails()){
-            return redirect()->back()->withErrors($validator->errors());
-        }
-        else{
             $genero = GeneroLivro::find($id);
 
             $genero->genero = Input::get("genero");
@@ -113,7 +103,6 @@ class GeneroLivroController extends Controller {
             \Session::flash("message", "Gênero atualizado com sucesso!");
             \Session::flash("status", "warning");
             return Redirect::route("generolivro.index");
-        }
 	}
 
 	/**
