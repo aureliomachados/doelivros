@@ -52,6 +52,14 @@
 								<a class="btn btn-link" href="{{ url('/password/email') }}">Forgot Your Password?</a>
 							</div>
 						</div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <a href="{!!URL::to('github')!!}">Login with Github</a>
+                                | <a href="{!!URL::to('facebook')!!}">Login with Facebook</a>
+                                | <a href="{!!URL::to('twitter')!!}">Login with Twitter</a>
+                            </div>
+                        </div>
 					</form>
 				</div>
 			</div>

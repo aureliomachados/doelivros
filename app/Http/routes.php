@@ -22,3 +22,18 @@ Route::controllers([
 
 #restfull resources for GeneroLivroController.
 Route::resource('generolivro', 'GeneroLivroController');
+
+
+// Redirect to github to authenticate
+
+Route::get('github', 'AccountController@github_redirect');
+
+Route::get('account/github', 'AccountController@github');
+
+Route::get('facebook', 'AccountController@facebook_redirect');
+
+Route::get('account/facebook', 'AccountController@facebook');
+
+Route::get('twitter', 'AccountController@twitter_redirect');
+
+Route::get('account/twitter', 'AccountController@twitter');
